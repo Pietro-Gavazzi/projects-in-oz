@@ -1,6 +1,7 @@
 
-declare 
-RECORD = [character('Harry Potter'
+declare
+
+INPUTRECORD = [character('Harry Potter'
 'Est-ce que c\'est une fille ?':false
 'A-t-il des cheveux noirs ?':true
 'Porte-t-il des lunettes ?':true
@@ -37,4 +38,9 @@ character('Severus Rogue'
 'A-t-il des cheveux roux ?':false
 )]
 
-{Browse RECORD.1.'Est-ce que c\'est une fille ?'}
+
+OUTPUTRECORD = question('Est-ce que c\'est une fille ?'
+          true: leaf(['Hermione Granger'])
+          false: question('Porte-t-il des lunettes ?'
+                 true: leaf(['Harry Potter'])
+                 false: leaf(['Ron Weasley'])))
