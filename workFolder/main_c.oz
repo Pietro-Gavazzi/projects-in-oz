@@ -1,5 +1,18 @@
 
+functor
+import
+   ProjectLib
+   Browser
+   OS
+   System
+   Application
+  
 declare
+
+{BuildDecisionTree INPUTRECORD, OUTPUTRECORD}
+INPUTRECORD
+OUTPUTRECORD
+in
 
 INPUTRECORD = [character('Harry Potter'
 'Est-ce que c\'est une fille ?':false
@@ -44,3 +57,5 @@ OUTPUTRECORD = question('Est-ce que c\'est une fille ?'
           false: question('Porte-t-il des lunettes ?'
                  true: leaf(['Harry Potter'])
                  false: leaf(['Ron Weasley'])))
+
+end
