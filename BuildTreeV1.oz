@@ -1,5 +1,8 @@
+
+
 local  L  N Result NumberOfTrueFalseOfQuestions Resultat SelectQuestion AnswerYesToQ AnswerFalseToQ in
    
+   % Compte le nombre de personnes qui répondent vrais ou faux à une question
    fun{NumberOfTrueFalseOfQuestions L N}      
       fun{CountFalse L Q  F}
 	 case L of H|T then if H.Q == false then {CountFalse T Q F+1}
@@ -12,13 +15,13 @@ local  L  N Result NumberOfTrueFalseOfQuestions Resultat SelectQuestion AnswerYe
 			    else  {CountTrue T Q V} end			       
 	 [] nil then V	   			        
 	 end
-      end
-      	 
+   end 	 
    in      
- 
       case N of H|T then valueQuestion(q:H v:{CountTrue L H 0} f:{CountFalse L H 0})|{NumberOfTrueFalseOfQuestions L T}	 
       [] nil then nil  end      
    end
+
+   % selectionne la question qui éliminerale plus de monde #true ~= #false
    fun{SelectQuestion L Q A}
       case L of H|T then if H.v > H.f then if H.v-H.f < A then {SelectQuestion T H.q H.v-H.f}
 				      else {SelectQuestion T Q A} end
@@ -44,7 +47,6 @@ local  L  N Result NumberOfTrueFalseOfQuestions Resultat SelectQuestion AnswerYe
 			    
    
 
-   L=[
 character('Harry Potter'
 'Est-ce que c\'est une fille ?':false
 'A-t-il des cheveux noirs ?':true
@@ -93,14 +95,7 @@ character('Severus Rogue'
       Ltrue={AnswerYesToQ L result}
       questions(result true: 
 			  
-		
-			     
-      
-      
-      
-
-   
-     
+	
 end
 
 
