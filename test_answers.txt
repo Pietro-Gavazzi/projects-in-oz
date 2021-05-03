@@ -1,7 +1,10 @@
-character('Ron Weasley'
-'Est-ce que c\'est une fille ?':false
-'A-t-il des cheveux noirs ?':false
-'Porte-t-il des lunettes ?':false
-'A-t-il des cheveux roux ?':true
+character('Elle Salter'
+'A-t-il une soeur?':true
+'Est-ce un personnage fictif?':false
+'A-t-il des cheveux?':true
+'Est-ce un humain':true
+'A-t-il des cheveux noirs?':false
+'Porte-t-il des lunettes?':false
+'A-t-il des cheveux blond?':true
+'Est-ce une fille?':true
 )
-

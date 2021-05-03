@@ -13,11 +13,12 @@ List2 = 4|5|nil
 
 fun {PopTwoElements List}
  case List 
- of nil then nil
- [] A|nil then nil 
- [] A|B|nil then nil
- [] A|B|C then {Append A B}
+  of nil then nil
+  [] A|nil then nil 
+  [] A|B|nil then nil
+  [] A|B|C|nil then A 
+  [] A|B|C|D then {Append A {PopTwoElements {Append }}}
  end
 end
 
-{Browse {PopTwoElements List2}}
+{Browse {PopTwoElements List1}}
