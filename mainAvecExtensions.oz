@@ -116,6 +116,7 @@ in
          Result
       in
          local 
+
          fun {Navigate Tree List}
             local
                NewList
@@ -131,16 +132,25 @@ in
                   [] H|T   then {LastElement T}
                   end
                end
+               fun {PopTwoElements List}
+                  case List 
+                     of nil then nil
+                     [] A|nil then nil 
+                     [] A|B|nil then nil
+                     [] A|B|C|nil then A|nil 
+                     [] A|B then {Append A|nil {PopTwoElements B}}
+                  end
+               end
             in 
                case {Accumulator Tree List}
                   of leaf(1:A) then {ProjectLib.found A}
                   [] question(1:A true:B false:C) then 
                   NewList = {Append List {ProjectLib.askQuestion A}|nil} 
-                  % if {LastElement NewList} == oops then 
-                  %    {Navigate Tree {PopTwoElements NewList}}
-                  % else
+                  if {LastElement NewList} == 'oops' then 
+                     {Navigate Tree {PopTwoElements NewList}}
+                  else
                      {Navigate Tree NewList}
-                  % end
+                  end
                end
             end
          end
@@ -166,7 +176,7 @@ in
       {ProjectLib.play opts(characters:ListOfCharacters driver:GameDriver 
                             noGUI:NoGUI builder:TreeBuilder 
                             autoPlay:ListOfAnswers newCharacter:NewCharacter 
-                            oopsButton:false )}
+                            oopsButton:true )}
       {Application.exit 0}
    end
 end
