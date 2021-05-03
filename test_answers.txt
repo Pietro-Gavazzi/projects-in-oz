@@ -4,3 +4,4 @@ character('Ron Weasley'
 'Porte-t-il des lunettes ?':false
 'A-t-il des cheveux roux ?':true
 )
+
