@@ -116,32 +116,15 @@ in
          Result
       in
          local 
-         fun {Navigate Tree List}
-            local
-               NewList
-               fun {Accumulator Tree List}
-                  case List 
-                  of H | T then {Accumulator Tree.H  T}
-                  [] nil then Tree
-                  end
-               end
-               fun  {LastElement List}
-                  case List
-                  of H|nil then H
-                  [] H|T   then {LastElement T}
-                  end
-               end
-            in 
-               case {Accumulator Tree List}
-                  of leaf(1:A) then {ProjectLib.found A}
-                  [] question(1:A true:B false:C) then 
-                  NewList = {Append List {ProjectLib.askQuestion A}|nil} 
-                  {Navigate Tree NewList}
-               end
+         fun {Navigate Tree}  
+            case Tree
+               of leaf(1:A) then {ProjectLib.found A}
+               [] question(1:A true:B false:C) then 
+               {Navigate Tree.{ProjectLib.askQuestion A}}
             end
          end
          in
-            Result = {Navigate {TreeBuilder ListOfCharacters} nil}
+            Result = {Navigate Tree}
          end
          if Result == false then
             % Arf ! L'algorithme s'est trompé !

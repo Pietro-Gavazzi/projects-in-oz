@@ -9,20 +9,22 @@ define
    CWD = {Atom.toString {OS.getCWD}}#"/"
    Browse = proc {$ Buf} {Browser.browse Buf} end
    Print = proc{$ S} {System.print S} end
-   Args = {Application.getArgs record('nogui'(single type:bool default:false optional:true)
-									  'db'(single type:string default:CWD#"database.txt"))} 
+   Args = {Application.getArgs 
+   record(
+   'nogui'(single type:bool default:false optional:true) 
+   'db'(single type:string default:CWD#"database.txt")
+   )} 
 
 in 
    local
 	  NoGUI = Args.'nogui'
 	  DB = Args.'db'
      ListOfCharacters = {ProjectLib.loadDatabase file Args.'db'}
-     NewCharacter = {ProjectLib.loadCharacter file CWD#"new_character.txt"}
-	  % Vous devez modifier le code pour que cette variable soit
-	  % assigné un argument 	
+     NewCharacter = {ProjectLib.loadCharacter file CWD#"new_character.txt"} 	 
+      % Vous devez modifier le code pour que cette variable soit assigné un argument 	
      ListOfAnswersFile = CWD#"test_answers.txt"
      ListOfAnswers = {ProjectLib.loadCharacter file CWD#"test_answers.txt"}
-   %_______________________________________________________________________________________
+% __________________________________________________________
      fun {TreeBuilder Database}
          local
             fun{BuildTree L Lq}
@@ -110,7 +112,7 @@ in
          end
       end
 
-   %_______________________________________________________________________________________
+% __________________________________________________________
 
       fun {GameDriver Tree}
          Result
@@ -155,7 +157,7 @@ in
             end
          end
          in
-            Result = {Navigate {TreeBuilder ListOfCharacters} nil}
+            Result = {Navigate Tree nil}
          end
          if Result == false then
             % Arf ! L'algorithme s'est trompé !
@@ -172,6 +174,7 @@ in
          % Toujours renvoyer unit
          unit
       end
+% __________________________________________________________
    in
       {ProjectLib.play opts(characters:ListOfCharacters driver:GameDriver 
                             noGUI:NoGUI builder:TreeBuilder 
