@@ -4,7 +4,7 @@ import
 define
 	local
     	Filename = stdout
-		OutputFile		
+     OutputFile		
       	WriteListToFile
       	ExampleList
 	in

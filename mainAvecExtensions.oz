@@ -115,6 +115,7 @@ in
 
       fun {GameDriver Tree}
          Result
+         Result1
       in
          local 
          fun {Navigate Tree FirstQuestion}
@@ -138,7 +139,10 @@ in
             end
          end
          in
-            Result = {Navigate Tree true}
+            Result1 = {Navigate Tree true}
+            case Result1 
+            of A|nil then Result = A
+            else Result = Result1 end
          end
          if Result == false then
             % Arf ! L'algorithme s'est trompé !
