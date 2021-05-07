@@ -132,7 +132,7 @@ in
                         else 'oops' end
                      else
                         AnswerNext = {Navigate Tree.AnswerThis false}
-                        if  AnswerNext == 'oops' then {Navigate Tree false} 
+                        if  AnswerNext == 'oops' then {Navigate Tree FirstQuestion} 
                         else AnswerNext end
                      end 
                end

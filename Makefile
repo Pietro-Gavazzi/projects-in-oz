@@ -2,7 +2,7 @@ OZC = ozc
 OZENGINE = ozengine
 
 DBPATH= databaseTest.txt
-NOGUI= "--nogui" #"--nogui" # set this variable to --nogui if you don't want the GUI
+NOGUI= "" #"--nogui" # set this variable to --nogui if you don't want the GUI
 
 SRC=$(wildcard *.oz)
 OBJ=$(SRC:.oz=.ozf)
