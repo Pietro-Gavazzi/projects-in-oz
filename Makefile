@@ -1,8 +1,8 @@
 OZC = ozc
 OZENGINE = ozengine
 
-DBPATH= database.txt
-NOGUI= "" #"--nogui" # set this variable to --nogui if you don't want the GUI
+DBPATH= databaseTest.txt
+NOGUI= "--nogui" #"--nogui" # set this variable to --nogui if you don't want the GUI
 
 SRC=$(wildcard *.oz)
 OBJ=$(SRC:.oz=.ozf)
@@ -13,7 +13,7 @@ all: $(OBJ)
 
 run: all
 	@echo RUN mainAvecExtensions.ozf
-	@$(OZENGINE) mainSansExtensions.ozf --db $(DBPATH) $(NOGUI)
+	@$(OZENGINE) mainAvecExtensions.ozf --db $(DBPATH) $(NOGUI)
 
 %.ozf: %.oz
 	@echo OZC $@

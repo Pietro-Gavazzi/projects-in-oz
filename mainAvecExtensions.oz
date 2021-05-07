@@ -118,46 +118,28 @@ in
          Result
       in
          local 
-
-         fun {Navigate Tree List}
+         fun {Navigate Tree FirstQuestion}
             local
-               NewList
-               fun {Accumulator Tree List}
-                  case List 
-                  of H | T then {Accumulator Tree.H  T}
-                  [] nil then Tree
-                  end
-               end
-               fun  {LastElement List}
-                  case List
-                  of H|nil then H
-                  [] H|T   then {LastElement T}
-                  end
-               end
-               fun {PopTwoElements List}
-                  case List 
-                     of nil then nil
-                     [] A|nil then nil 
-                     [] A|B|nil then nil
-                     [] A|B|C|nil then A|nil 
-                     [] A|B then {Append A|nil {PopTwoElements B}}
-                  end
-               end
+               AnswerThis 
+               AnswerNext
             in 
-               case {Accumulator Tree List}
+               case Tree
                   of leaf(1:A) then {ProjectLib.found A}
                   [] question(1:A true:B false:C) then 
-                  NewList = {Append List {ProjectLib.askQuestion A}|nil} 
-                  if {LastElement NewList} == 'oops' then 
-                     {Navigate Tree {PopTwoElements NewList}}
-                  else
-                     {Navigate Tree NewList}
-                  end
+                     AnswerThis = {ProjectLib.askQuestion Tree.1}
+                     if AnswerThis == 'oops' then 
+                        if FirstQuestion then  {Navigate Tree true}
+                        else 'oops' end
+                     else
+                        AnswerNext = {Navigate Tree.AnswerThis false}
+                        if  AnswerNext == 'oops' then {Navigate Tree false} 
+                        else AnswerNext end
+                     end 
                end
             end
          end
          in
-            Result = {Navigate Tree nil}
+            Result = {Navigate Tree true}
          end
          if Result == false then
             % Arf ! L'algorithme s'est trompé !
@@ -174,6 +156,73 @@ in
          % Toujours renvoyer unit
          unit
       end
+
+
+
+
+
+
+      % fun {GameDriver Tree}
+      %    Result
+      % in
+      %    local 
+
+      %    fun {Navigate Tree List}
+      %       local
+      %          NewList
+      %          fun {Accumulator Tree List}
+      %             case List 
+      %             of H | T then {Accumulator Tree.H  T}
+      %             [] nil then Tree
+      %             end
+      %          end
+      %          fun  {LastElement List}
+      %             case List
+      %             of H|nil then H
+      %             [] H|T   then {LastElement T}
+      %             end
+      %          end
+      %          fun {PopTwoElements List}
+      %             case List 
+      %                of nil then nil
+      %                [] A|nil then nil 
+      %                [] A|B|nil then nil
+      %                [] A|B|C|nil then A|nil 
+      %                [] A|B then {Append A|nil {PopTwoElements B}}
+      %             end
+      %          end
+      %       in 
+      %          case {Accumulator Tree List}
+      %             of leaf(1:A) then {ProjectLib.found A}
+      %             [] question(1:A true:B false:C) then 
+      %             NewList = {Append List {ProjectLib.askQuestion A}|nil} 
+      %             if {LastElement NewList} == 'oops' then 
+      %                {Navigate Tree {PopTwoElements NewList}}
+      %             else
+      %                {Navigate Tree NewList}
+      %             end
+      %          end
+      %       end
+      %    end
+      %    in
+      %       Result = {Navigate Tree nil}
+      %    end
+      %    if Result == false then
+      %       % Arf ! L'algorithme s'est trompé !
+      %       {Print 'Je me suis trompé\n'}
+      %       {Print {ProjectLib.surrender}}
+
+      %       % warning, Browse do not work in noGUI mode
+      %       {Print {ProjectLib.askQuestion 'A-t-il des cheveux roux ?'}}
+
+      %    else
+      %        {Print Result}
+      %    end
+
+      %    % Toujours renvoyer unit
+      %    unit
+      % end
+
 % __________________________________________________________
    in
       {ProjectLib.play opts(characters:ListOfCharacters driver:GameDriver 
