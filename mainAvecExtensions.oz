@@ -10,20 +10,19 @@ define
    Browse = proc {$ Buf} {Browser.browse Buf} end
    Print = proc{$ S} {System.print S} end
    Args = {Application.getArgs 
-   record(
+   record( 'ans'(single type:string)
    'nogui'(single type:bool default:false optional:true) 
-   'db'(single type:string default:CWD#"database.txt")
+   'db'(single type:string)
    )} 
 
 in 
    local
 	  NoGUI = Args.'nogui'
 	  DB = Args.'db'
-     ListOfCharacters = {ProjectLib.loadDatabase file Args.'db'}
-     NewCharacter = {ProjectLib.loadCharacter file CWD#"new_character.txt"} 	 
+     ListOfCharacters = {ProjectLib.loadDatabase file Args.'db'} 
       % Vous devez modifier le code pour que cette variable soit assigné un argument 	
-     ListOfAnswersFile = CWD#"test_answers.txt"
-     ListOfAnswers = {ProjectLib.loadCharacter file CWD#"test_answers.txt"}
+     ListOfAnswersFile = Args.'ans'
+     ListOfAnswers = {ProjectLib.loadCharacter file Args.'ans'}
 % __________________________________________________________
      fun {TreeBuilder Database}
          local
@@ -228,7 +227,7 @@ in
    in
       {ProjectLib.play opts(characters:ListOfCharacters driver:GameDriver 
                             noGUI:NoGUI builder:TreeBuilder 
-                            autoPlay:ListOfAnswers newCharacter:NewCharacter 
+                            autoPlay:ListOfAnswers  
                             oopsButton:true )}
       {Application.exit 0}
    end
