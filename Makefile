@@ -1,7 +1,7 @@
 OZC = ozc
 OZENGINE = ozengine
 
-DBPATH= databaseTest.txt
+DBPATH= database.txt
 NOGUI= "" #"--nogui" # set this variable to --nogui if you don't want the GUI
 ANSPATH= test_answers.txt
 

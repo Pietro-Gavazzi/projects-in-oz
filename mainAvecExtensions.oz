@@ -129,7 +129,7 @@ in
                []H|T then 
                   {F write(vs:H#",")}
                   {WriteListToFile T F}
-               else {F write(vs:L)}
+               else  {F write(vs:L)}
                
             end
          end
@@ -171,7 +171,6 @@ in
 
          else
             {WriteListToFile Result OutputFile}
-         	{OutputFile close}
          end
 
          % Toujours renvoyer unit
