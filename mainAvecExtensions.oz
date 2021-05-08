@@ -5,7 +5,9 @@ import
    OS
    System
    Application
+   Open
 define
+
    CWD = {Atom.toString {OS.getCWD}}#"/"
    Browse = proc {$ Buf} {Browser.browse Buf} end
    Print = proc{$ S} {System.print S} end
@@ -115,34 +117,47 @@ in
 
       fun {GameDriver Tree}
          Result
-         Result1
-      in
-         local 
-         fun {Navigate Tree FirstQuestion}
-            local
-               AnswerThis 
-               AnswerNext
-            in 
-               case Tree
-                  of leaf(1:A) then {ProjectLib.found A}
-                  [] question(1:A true:B false:C) then 
-                     AnswerThis = {ProjectLib.askQuestion Tree.1}
-                     if AnswerThis == 'oops' then 
-                        if FirstQuestion then  {Navigate Tree true}
-                        else 'oops' end
-                     else
-                        AnswerNext = {Navigate Tree.AnswerThis false}
-                        if  AnswerNext == 'oops' then {Navigate Tree FirstQuestion} 
-                        else AnswerNext end
-                     end 
-               end
+         Filename = stdout
+         OutputFile		
+      	WriteListToFile
+      	ExampleList
+         proc {WriteListToFile L F}
+            % F must be an opened file
+            case L
+               of H|nil then 
+                  {F write(vs:H)}
+               []H|T then 
+                  {F write(vs:H#",")}
+                  {WriteListToFile T F}
             end
          end
+      in
+         local 
+            fun {Navigate Tree FirstQuestion}
+               local
+                  AnswerThis 
+                  AnswerNext
+               in 
+                  case Tree
+                     of leaf(1:A) then {ProjectLib.found A}
+                     [] question(1:A true:B false:C) then 
+                        AnswerThis = {ProjectLib.askQuestion Tree.1}
+                        if AnswerThis == 'oops' then 
+                           if FirstQuestion then  {Navigate Tree true}
+                           else 'oops' end
+                        else
+                           AnswerNext = {Navigate Tree.AnswerThis false}
+                           if  AnswerNext == 'oops' then {Navigate Tree FirstQuestion} 
+                           else AnswerNext end
+                        end 
+                  end
+               end
+            end
          in
-            Result1 = {Navigate Tree true}
-            case Result1 
-            of A|nil then Result = A
-            else Result = Result1 end
+            Result = {Navigate Tree true}
+            OutputFile = {New Open.file init(name: Filename
+				       flags: [write create truncate text])}
+
          end
          if Result == false then
             % Arf ! L'algorithme s'est trompé !
@@ -153,7 +168,8 @@ in
             {Print {ProjectLib.askQuestion 'A-t-il des cheveux roux ?'}}
 
          else
-             {Print Result}
+            {WriteListToFile Result OutputFile}
+         	{OutputFile close}
          end
 
          % Toujours renvoyer unit
@@ -234,6 +250,7 @@ in
                             autoPlay:ListOfAnswers  
                             oopsButton:true )}
       {Application.exit 0}
+
    end
 end
 
